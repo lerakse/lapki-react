@@ -10,8 +10,10 @@ React (функциональные компоненты, JSX, `useState`), Vite
 
 ## Запуск
 
+```
 npm install
 npm run dev
+```
 Откройте адрес из терминала (обычно http://localhost:5173).
 
 ## Структура
