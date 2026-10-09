@@ -1,0 +1,37 @@
+.nav {
+  display: flex;
+  justify-content: space-around;
+  padding: var(--space-2) var(--space-2) var(--space-3);
+  border-top: 1px solid var(--color-line);
+  background: var(--color-paper-raised);
+}
+
+.item {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: var(--space-1) 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.label {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.gray {
+  color: var(--color-ink-faint);
+}
+
+.green {
+  color: var(--color-primary-press);
+}
+
+.ai {
+  color: var(--color-ai);
+}

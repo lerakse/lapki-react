@@ -1,0 +1,50 @@
+/* Дизайн-токены из ЛР17 (Figma Styles) */
+:root {
+  --color-primary: #9DE97B;
+  --color-primary-hover: #7dd660;
+  --color-primary-press: #66c24a;
+  --color-ai: #7bc4e9;
+  --color-urgent: #eee876;
+  --color-ink: #14151A;
+  --color-ink-soft: #5B5E66;
+  --color-ink-faint: rgba(91, 94, 102, 0.55);
+  --color-paper: #fcfbf4;
+  --color-paper-raised: #ffffff;
+  --color-line: #e7e3d3;
+  --color-line-strong: #d2ccb6;
+  --color-heart: #da3f26;
+  --color-error: #da3f26;
+  --color-error-bg: #FEF3F1;
+
+  --radius-s: 6px;
+  --radius-m: 10px;
+  --radius-l: 16px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  --font-main: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-main);
+  color: var(--color-ink);
+  background: var(--color-paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input {
+  font-family: inherit;
+}
