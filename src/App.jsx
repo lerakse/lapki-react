@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import Button from './components/Button/Button.jsx';
 import InputField from './components/InputField/InputField.jsx';
-import FavoriteButton from './components/FavoriteButton/FavoriteButton.jsx';
 import PetCard from './components/PetCard/PetCard.jsx';
 import BottomNav from './components/BottomNav/BottomNav.jsx';
-import barsik from './assets/pets/barsik.png';
+import Favorites from './components/Favorites/Favorites.jsx';
+import FavoritesBadge from './components/FavoritesBadge/FavoritesBadge.jsx';
+import { PETS } from './data/pets.js';
 import logo from './assets/icons/logo.svg';
 import styles from './App.module.css';
 
@@ -15,38 +16,22 @@ const NAV_ITEMS = [
   { id: 'pets', label: 'Питомцы', icon: 'paw' },
 ];
 
-const PETS = [
-  {
-    name: 'Барсик',
-    description: 'Кот, 3 года. На реабилитации, ищет заботливую семью.',
-    photo: barsik,
-    urgent: true,
-  },
-  {
-    name: 'Ляля',
-    description: 'Собака, 1 год. Активная и добрая, ищет семью с садом.',
-    urgent: false,
-  },
-];
-
 function App() {
   const [counter, setCounter] = useState(0);
   const [tab, setTab] = useState('home');
-  const [lastFavorite, setLastFavorite] = useState('—');
-
-  const handleFavorite = (name, value) => {
-    setLastFavorite(`${name}: ${value ? 'добавлен' : 'удалён'}`);
-  };
+  const [lastOpened, setLastOpened] = useState('—');
 
   return (
     <main className={styles.page}>
       <header className={styles.header}>
-        <h1 className={styles.title}>ЛР2 Кудрявская</h1>
+        <img src={logo} alt="Лапки" height="40" />
+        <h1 className={styles.title}>ЛР5 Кудрявская</h1>
       </header>
 
       <div className={styles.layout}>
         <section className={styles.panel}>
-          <img src={logo} alt="Лапки" height="40" />
+          <Favorites pets={PETS} />
+
           <h2 className={styles.h2}>Кнопки</h2>
           <div className={styles.row}>
             <Button onClick={() => setCounter(counter + 1)}>Помочь</Button>
@@ -60,30 +45,22 @@ function App() {
             <InputField label="Имя" placeholder="Как вас зовут" required />
             <InputField label="Email" type="email" placeholder="name@mail.com" required />
           </div>
-
-          <h2 className={styles.h2}>Сердечко</h2>
-          <div className={styles.row}>
-            <FavoriteButton />
-            <FavoriteButton initialActive />
-          </div>
         </section>
 
         <section className={styles.phoneWrap}>
           <div className={styles.phone}>
             <div className={styles.screen}>
-              <p className={styles.screenTitle}>Экран: {NAV_ITEMS.find((i) => i.id === tab).label}</p>
+              <div className={styles.screenHead}>
+                <p className={styles.screenTitle}>{NAV_ITEMS.find((i) => i.id === tab).label}</p>
+                <FavoritesBadge />
+              </div>
               {PETS.map((pet) => (
-                <PetCard
-                  key={pet.name}
-                  {...pet}
-                  onFavoriteChange={handleFavorite}
-                  onOpen={(name) => setLastFavorite(`открыта анкета: ${name}`)}
-                />
+                <PetCard key={pet.id} {...pet} onOpen={(name) => setLastOpened(name)} />
               ))}
             </div>
             <BottomNav items={NAV_ITEMS} initialActive="home" onChange={setTab} />
           </div>
-          <p className={styles.note}>Последнее действие: {lastFavorite}</p>
+          <p className={styles.note}>Открыта анкета: {lastOpened}</p>
         </section>
       </div>
     </main>

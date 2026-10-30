@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../Button/Button.jsx';
+import Icon from '../Icon/Icon.jsx';
 import FavoriteButton from '../FavoriteButton/FavoriteButton.jsx';
 import styles from './PetCard.module.css';
 
-function PetCard({ name, description, photo, urgent = false, onFavoriteChange, onOpen }) {
+function PetCard({ id, name, description, photo, urgent = false, onOpen }) {
   const [pressed, setPressed] = useState(false);
 
   return (
@@ -18,7 +19,9 @@ function PetCard({ name, description, photo, urgent = false, onFavoriteChange, o
         {photo ? (
           <img className={styles.image} src={photo} alt={name} />
         ) : (
-          <span className={styles.placeholder}>фото питомца</span>
+          <span className={styles.placeholder} aria-label="Фото питомца скоро появится">
+            <Icon name="paw" size={64} />
+          </span>
         )}
 
         {urgent && <span className={styles.tag}>срочно</span>}
@@ -28,7 +31,7 @@ function PetCard({ name, description, photo, urgent = false, onFavoriteChange, o
           onMouseDown={(e) => e.stopPropagation()}
           onMouseUp={(e) => e.stopPropagation()}
         >
-          <FavoriteButton onToggle={(value) => onFavoriteChange && onFavoriteChange(name, value)} />
+          <FavoriteButton petId={id} />
         </div>
       </div>
 
@@ -50,11 +53,11 @@ function PetCard({ name, description, photo, urgent = false, onFavoriteChange, o
 }
 
 PetCard.propTypes = {
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   photo: PropTypes.string,
   urgent: PropTypes.bool,
-  onFavoriteChange: PropTypes.func,
   onOpen: PropTypes.func,
 };
 

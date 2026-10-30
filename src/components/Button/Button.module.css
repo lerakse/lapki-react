@@ -29,7 +29,6 @@
   cursor: not-allowed;
 }
 
-/* Primary */
 .primary {
   background: var(--color-primary);
 }
@@ -40,7 +39,6 @@
   background: var(--color-primary-press);
 }
 
-/* Secondary */
 .secondary {
   background: var(--color-paper-raised);
   border-color: var(--color-line);

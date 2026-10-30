@@ -29,9 +29,8 @@
 }
 
 .placeholder {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  color: var(--color-ink-faint);
+  display: flex;
+  color: var(--color-line-strong);
 }
 
 .tag {
