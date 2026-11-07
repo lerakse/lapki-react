@@ -1,69 +1,94 @@
 import { useState } from 'react';
-import Button from './components/Button/Button.jsx';
-import InputField from './components/InputField/InputField.jsx';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
+import PetsOutlinedIcon from '@mui/icons-material/PetsOutlined';
 import PetCard from './components/PetCard/PetCard.jsx';
 import BottomNav from './components/BottomNav/BottomNav.jsx';
+import NavTabs from './components/NavTabs/NavTabs.jsx';
 import Favorites from './components/Favorites/Favorites.jsx';
 import FavoritesBadge from './components/FavoritesBadge/FavoritesBadge.jsx';
+import HelpCard from './components/HelpCard/HelpCard.jsx';
 import { PETS } from './data/pets.js';
 import logo from './assets/icons/logo.svg';
-import styles from './App.module.css';
 
 const NAV_ITEMS = [
-  { id: 'home', label: 'Главная', icon: 'home' },
-  { id: 'ai', label: 'ИИ', icon: 'ai', accent: 'ai' },
-  { id: 'donate', label: 'Донаты', icon: 'donate' },
-  { id: 'pets', label: 'Питомцы', icon: 'paw' },
+  { id: 'home', label: 'Главная', icon: <HomeOutlinedIcon /> },
+  { id: 'ai', label: 'ИИ', icon: <AutoAwesomeOutlinedIcon />, accent: 'ai' },
+  { id: 'donate', label: 'Донаты', icon: <MonetizationOnOutlinedIcon /> },
+  { id: 'pets', label: 'Питомцы', icon: <PetsOutlinedIcon /> },
 ];
 
 function App() {
   const [counter, setCounter] = useState(0);
   const [tab, setTab] = useState('home');
   const [lastOpened, setLastOpened] = useState('—');
+  const current = NAV_ITEMS.find((item) => item.id === tab);
 
   return (
-    <main className={styles.page}>
-      <header className={styles.header}>
-        <img src={logo} alt="Лапки" height="40" />
-        <h1 className={styles.title}>ЛР5 Кудрявская</h1>
-      </header>
+    <>
+      <AppBar
+        position="sticky"
+        color="inherit"
+        elevation={0}
+        sx={{ bgcolor: 'background.default', borderBottom: 1, borderColor: 'divider' }}
+      >
+        <Container maxWidth="lg">
+          <Toolbar disableGutters sx={{ gap: 2 }}>
+            <Box component="img" src={logo} alt="Лапки" sx={{ height: 40 }} />
+            <Typography variant="h6" component="span" sx={{ fontWeight: 700, display: { xs: 'none', sm: 'block' } }}>
+              ЛР6 Кудрявская
+            </Typography>
+            <NavTabs items={NAV_ITEMS} value={tab} onChange={setTab} />
+            <Box sx={{ flexGrow: 1 }} />
+            <FavoritesBadge />
+          </Toolbar>
+        </Container>
+      </AppBar>
 
-      <div className={styles.layout}>
-        <section className={styles.panel}>
-          <Favorites pets={PETS} />
+      <Container component="main" maxWidth="lg" sx={{ pt: { xs: 3, md: 5 }, pb: { xs: 12, md: 6 } }}>
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          justifyContent="space-between"
+          alignItems={{ xs: 'flex-start', sm: 'baseline' }}
+          spacing={1}
+          sx={{ mb: 3 }}
+        >
+          <Typography variant="h1">{current.label}</Typography>
+          <Typography variant="caption" color="text.secondary">
+            Открыта анкета: {lastOpened}
+          </Typography>
+        </Stack>
 
-          <h2 className={styles.h2}>Кнопки</h2>
-          <div className={styles.row}>
-            <Button onClick={() => setCounter(counter + 1)}>Помочь</Button>
-            <Button variant="secondary" icon="arrow">Подробнее</Button>
-            <Button disabled>Недоступна</Button>
-          </div>
-          <p className={styles.note}>Нажатий на «Помочь»: {counter}</p>
+        <Grid container spacing={3}>
+          {PETS.map((pet) => (
+            <Grid item key={pet.id} xs={12} sm={6} md={4}>
+              <PetCard {...pet} onOpen={setLastOpened} />
+            </Grid>
+          ))}
+        </Grid>
 
-          <h2 className={styles.h2}>Поля ввода</h2>
-          <div className={styles.column}>
-            <InputField label="Имя" placeholder="Как вас зовут" required />
-            <InputField label="Email" type="email" placeholder="name@mail.com" required />
-          </div>
-        </section>
+        <Box sx={{ mt: 4 }}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6}>
+              <Favorites pets={PETS} />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <HelpCard count={counter} onHelp={() => setCounter(counter + 1)} />
+            </Grid>
+          </Grid>
+        </Box>
+      </Container>
 
-        <section className={styles.phoneWrap}>
-          <div className={styles.phone}>
-            <div className={styles.screen}>
-              <div className={styles.screenHead}>
-                <p className={styles.screenTitle}>{NAV_ITEMS.find((i) => i.id === tab).label}</p>
-                <FavoritesBadge />
-              </div>
-              {PETS.map((pet) => (
-                <PetCard key={pet.id} {...pet} onOpen={(name) => setLastOpened(name)} />
-              ))}
-            </div>
-            <BottomNav items={NAV_ITEMS} initialActive="home" onChange={setTab} />
-          </div>
-          <p className={styles.note}>Открыта анкета: {lastOpened}</p>
-        </section>
-      </div>
-    </main>
+      <BottomNav items={NAV_ITEMS} value={tab} onChange={setTab} />
+    </>
   );
 }
 

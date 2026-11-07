@@ -1,54 +1,60 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
-import Button from '../Button/Button.jsx';
-import Icon from '../Icon/Icon.jsx';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Chip from '@mui/material/Chip';
+import Typography from '@mui/material/Typography';
+import PetsIcon from '@mui/icons-material/Pets';
 import FavoriteButton from '../FavoriteButton/FavoriteButton.jsx';
-import styles from './PetCard.module.css';
 
 function PetCard({ id, name, description, photo, urgent = false, onOpen }) {
-  const [pressed, setPressed] = useState(false);
-
   return (
-    <article
-      className={`${styles.card} ${pressed ? styles.pressed : ''}`}
-      onMouseDown={() => setPressed(true)}
-      onMouseUp={() => setPressed(false)}
-      onMouseLeave={() => setPressed(false)}
-    >
-      <div className={styles.photo}>
+    <Card component="article" sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{ position: 'relative' }}>
         {photo ? (
-          <img className={styles.image} src={photo} alt={name} />
+          <CardMedia component="img" height="200" image={photo} alt={name} sx={{ objectFit: 'cover' }} />
         ) : (
-          <span className={styles.placeholder} aria-label="Фото питомца скоро появится">
-            <Icon name="paw" size={64} />
-          </span>
+          <Box
+            role="img"
+            aria-label="Фото питомца скоро появится"
+            sx={{ height: 200, bgcolor: 'divider', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          >
+            <PetsIcon sx={{ fontSize: 64, color: 'text.secondary' }} />
+          </Box>
         )}
 
-        {urgent && <span className={styles.tag}>срочно</span>}
+        {urgent && (
+          <Chip
+            label="срочно"
+            size="small"
+            color="warning"
+            sx={{ position: 'absolute', top: 12, left: 12 }}
+          />
+        )}
 
-        <div
-          className={styles.favorite}
-          onMouseDown={(e) => e.stopPropagation()}
-          onMouseUp={(e) => e.stopPropagation()}
-        >
+        <Box sx={{ position: 'absolute', top: 8, right: 8 }}>
           <FavoriteButton petId={id} />
-        </div>
-      </div>
+        </Box>
+      </Box>
 
-      <div className={styles.body}>
-        <h3 className={styles.name}>{name}</h3>
-        <p className={styles.description}>{description}</p>
-        <div
-          className={styles.actions}
-          onMouseDown={(e) => e.stopPropagation()}
-          onMouseUp={(e) => e.stopPropagation()}
-        >
-          <Button variant="secondary" size="small" fullWidth onClick={() => onOpen && onOpen(name)}>
-            Смотреть анкету
-          </Button>
-        </div>
-      </div>
-    </article>
+      <CardContent sx={{ flexGrow: 1 }}>
+        <Typography variant="h3" component="h3" gutterBottom>
+          {name}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {description}
+        </Typography>
+      </CardContent>
+
+      <CardActions sx={{ px: 2, pb: 2 }}>
+        <Button variant="outlined" color="inherit" fullWidth onClick={() => onOpen && onOpen(name)}>
+          Смотреть анкету
+        </Button>
+      </CardActions>
+    </Card>
   );
 }
 

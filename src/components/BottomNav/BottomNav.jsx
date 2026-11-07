@@ -1,35 +1,36 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../Icon/Icon.jsx';
-import styles from './BottomNav.module.css';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import Paper from '@mui/material/Paper';
 
-function BottomNav({ items, initialActive, onChange }) {
-  const [activeId, setActiveId] = useState(initialActive || items[0].id);
-
-  const handleSelect = (id) => {
-    setActiveId(id);
-    if (onChange) onChange(id);
-  };
-
+function BottomNav({ items, value, onChange }) {
   return (
-    <nav className={styles.nav}>
-      {items.map((item) => {
-        const isActive = item.id === activeId;
-        const color = isActive ? (item.accent === 'ai' ? styles.ai : styles.green) : styles.gray;
-        return (
-          <button
+    <Paper
+      square
+      elevation={0}
+      sx={{
+        position: 'fixed',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: (theme) => theme.zIndex.appBar,
+        borderTop: 1,
+        borderColor: 'divider',
+        display: { xs: 'block', md: 'none' },
+      }}
+    >
+      <BottomNavigation showLabels value={value} onChange={(event, id) => onChange(id)}>
+        {items.map((item) => (
+          <BottomNavigationAction
             key={item.id}
-            type="button"
-            className={`${styles.item} ${color}`}
-            aria-current={isActive ? 'page' : undefined}
-            onClick={() => handleSelect(item.id)}
-          >
-            <Icon name={item.icon} size={24} />
-            <span className={styles.label}>{item.label}</span>
-          </button>
-        );
-      })}
-    </nav>
+            value={item.id}
+            label={item.label}
+            icon={item.icon}
+            sx={{ '&.Mui-selected': { color: item.accent === 'ai' ? 'secondary.main' : 'primary.dark' } }}
+          />
+        ))}
+      </BottomNavigation>
+    </Paper>
   );
 }
 
@@ -38,12 +39,12 @@ BottomNav.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
-      icon: PropTypes.string.isRequired,
+      icon: PropTypes.node.isRequired,
       accent: PropTypes.oneOf(['primary', 'ai']),
     }),
   ).isRequired,
-  initialActive: PropTypes.string,
-  onChange: PropTypes.func,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default BottomNav;

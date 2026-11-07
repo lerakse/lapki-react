@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import styles from './InputField.module.css';
+import TextField from '@mui/material/TextField';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function InputField({ label, type = 'text', placeholder = '', required = false, onChange }) {
   const [value, setValue] = useState('');
-  const [focused, setFocused] = useState(false);
   const [touched, setTouched] = useState(false);
 
   let error = '';
@@ -20,25 +19,19 @@ function InputField({ label, type = 'text', placeholder = '', required = false, 
     if (onChange) onChange(e.target.value);
   };
 
-  const state = error ? styles.error : focused ? styles.focused : '';
-
   return (
-    <label className={styles.field}>
-      <span className={styles.label}>{label}</span>
-      <input
-        className={`${styles.input} ${state}`}
-        type={type}
-        value={value}
-        placeholder={placeholder}
-        onChange={handleChange}
-        onFocus={() => setFocused(true)}
-        onBlur={() => {
-          setFocused(false);
-          setTouched(true);
-        }}
-      />
-      {error && <span className={styles.message}>{error}</span>}
-    </label>
+    <TextField
+      label={label}
+      type={type}
+      placeholder={placeholder}
+      required={required}
+      value={value}
+      onChange={handleChange}
+      onBlur={() => setTouched(true)}
+      error={Boolean(error)}
+      helperText={error || ' '}
+      fullWidth
+    />
   );
 }
 

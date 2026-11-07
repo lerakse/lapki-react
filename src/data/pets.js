@@ -22,4 +22,22 @@ export const PETS = [
     photo: rex,
     urgent: false,
   },
+  {
+    id: 4,
+    name: 'Мурка',
+    description: 'Кошка, 2 года. Ласковая, приучена к лотку, любит сидеть на руках.',
+    urgent: true,
+  },
+  {
+    id: 5,
+    name: 'Тузик',
+    description: 'Пёс, 4 года. Хорошо ходит на поводке.',
+    urgent: false,
+  },
+  {
+    id: 6,
+    name: 'Соня',
+    description: 'Кошка, 7 лет. Спокойная и тихая, подойдёт для квартиры.',
+    urgent: false,
+  },
 ];
