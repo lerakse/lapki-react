@@ -2,6 +2,10 @@
 
 React-приложение «Лапки» из ЛР № 6 (MUI + Redux Toolkit), перенесённое на мета-фреймворк **Next.js** (Pages Router). Проект создан через `create-next-app`, компоненты из прошлых работ перенесены в `src/components`, маршруты строятся автоматически по файлам в `src/pages`. Две ключевые страницы используют разные стратегии рендеринга: главная — **SSR**, анкеты питомцев — **SSG**.
 
+## Сервер API (ЛР № 8)
+
+REST API на Express и MongoDB находится в папке [`server`](server). Установка, запуск и описание эндпоинтов — в [server/README.md](server/README.md).
+
 ## Стек
 
 Next.js 16 (Pages Router), React 19, MUI 5 (`@mui/material`, `@mui/icons-material`, Emotion, `@mui/material-nextjs` для серверных стилей), Redux Toolkit, React Redux, PropTypes.
