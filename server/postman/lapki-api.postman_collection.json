@@ -1,0 +1,85 @@
+{
+  "info": {
+    "name": "Лапки API",
+    "description": "CRUD-запросы к REST API приюта «Лапки» (ЛР № 8)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:4000" },
+    { "key": "petId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Получить всех питомцев",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/pets"
+      }
+    },
+    {
+      "name": "Получить питомца по id",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/pets/{{petId}}"
+      }
+    },
+    {
+      "name": "Создать питомца",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('201 Created', () => pm.response.to.have.status(201));",
+              "pm.collectionVariables.set('petId', pm.response.json()._id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Пушок\",\n    \"species\": \"cat\",\n    \"age\": 1,\n    \"description\": \"Котёнок, 1 год. Игривый, приучен к лотку.\",\n    \"urgent\": false\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": "{{baseUrl}}/api/pets"
+      }
+    },
+    {
+      "name": "Обновить питомца",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"age\": 2,\n    \"urgent\": true,\n    \"description\": \"Кот, 2 года. Игривый, приучен к лотку, срочно ищет дом.\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": "{{baseUrl}}/api/pets/{{petId}}"
+      }
+    },
+    {
+      "name": "Удалить питомца",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/api/pets/{{petId}}"
+      }
+    },
+    {
+      "name": "Ошибка валидации (400)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"\",\n    \"species\": \"fish\",\n    \"age\": -1\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": "{{baseUrl}}/api/pets"
+      }
+    }
+  ]
+}
