@@ -1,6 +1,21 @@
 import { createTheme } from '@mui/material/styles';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 
-const mono = "'JetBrains Mono', ui-monospace, monospace";
+// next/font скачивает шрифты при сборке и раздаёт их с нашего сервера,
+// поэтому браузеру не нужно отдельно ходить в Google Fonts
+const inter = Inter({
+  subsets: ['latin', 'cyrillic'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin', 'cyrillic'],
+  weight: ['400', '500'],
+  display: 'swap',
+});
+
+const mono = `${jetbrainsMono.style.fontFamily}, ui-monospace, monospace`;
 
 const theme = createTheme({
   palette: {
@@ -14,7 +29,7 @@ const theme = createTheme({
   },
   shape: { borderRadius: 10 },
   typography: {
-    fontFamily: "'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif",
+    fontFamily: `${inter.style.fontFamily}, system-ui, -apple-system, 'Segoe UI', sans-serif`,
     h1: { fontSize: '1.75rem', fontWeight: 700 },
     h2: { fontSize: '1.25rem', fontWeight: 700 },
     h3: { fontSize: '1.125rem', fontWeight: 700 },
