@@ -10,8 +10,6 @@ import theme from '@/theme';
 
 export default function App(props) {
   const { Component, pageProps } = props;
-  // store живёт, пока открыта вкладка: при переходах через <Link>
-  // страница не перезагружается и избранное сохраняется
   const [store] = useState(makeStore);
 
   return (

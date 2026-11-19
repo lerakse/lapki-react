@@ -1,4 +1,3 @@
-// Mock-данные приюта. Фото лежат в public/pets и отдаются Next.js как статика
 export const PETS = [
   {
     id: 1,
