@@ -1,8 +1,6 @@
 import { Html, Head, Main, NextScript } from 'next/document';
 import { DocumentHeadTags, documentGetInitialProps } from '@mui/material-nextjs/v16-pagesRouter';
 
-// DocumentHeadTags вставляет в <head> стили Emotion, собранные на сервере,
-// поэтому страница приходит в браузер уже оформленной
 export default function Document(props) {
   return (
     <Html lang="ru">

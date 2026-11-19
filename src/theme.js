@@ -1,8 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 
-// next/font скачивает шрифты при сборке и раздаёт их с нашего сервера,
-// поэтому браузеру не нужно отдельно ходить в Google Fonts
 const inter = Inter({
   subsets: ['latin', 'cyrillic'],
   weight: ['400', '500', '600', '700'],

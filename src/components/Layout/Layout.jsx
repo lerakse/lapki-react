@@ -21,7 +21,6 @@ const NAV_ITEMS = [
   { id: 'pets', href: '/pets', label: 'Питомцы', icon: <PetsOutlinedIcon /> },
 ];
 
-// Активный раздел теперь определяется по адресу страницы, а не по useState
 function getSection(pathname) {
   if (pathname === '/') return 'home';
   const item = NAV_ITEMS.find((nav) => nav.href !== '/' && pathname.startsWith(nav.href));
@@ -46,7 +45,7 @@ function Layout({ children }) {
               <Box component="img" src="/logo.svg" alt="Лапки" sx={{ height: 40 }} />
             </Box>
             <Typography variant="h6" component="span" sx={{ fontWeight: 700, display: { xs: 'none', sm: 'block' } }}>
-              ЛР7 Кудрявская
+              ЛР9 Кудрявская
             </Typography>
             <NavTabs items={NAV_ITEMS} value={section} />
             <Box sx={{ flexGrow: 1 }} />

@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// Схема питомца приюта «Лапки» — основная сущность проекта
 const petSchema = new mongoose.Schema(
   {
     name: {
@@ -32,7 +31,7 @@ const petSchema = new mongoose.Schema(
     urgent: { type: Boolean, default: false },
   },
   {
-    timestamps: true, // createdAt и updatedAt заполняются автоматически
+    timestamps: true,
     versionKey: false,
   },
 );

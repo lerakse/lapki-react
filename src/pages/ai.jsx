@@ -6,7 +6,6 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import PageHeader from '@/components/PageHeader/PageHeader';
 
-// Страница без функций получения данных: Next.js сам делает её статической
 export default function AiPage() {
   return (
     <>

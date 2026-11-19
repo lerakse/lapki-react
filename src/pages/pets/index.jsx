@@ -2,12 +2,14 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 import Link from 'next/link';
 import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import Chip from '@mui/material/Chip';
 import List from '@mui/material/List';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import AddIcon from '@mui/icons-material/Add';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import PetsIcon from '@mui/icons-material/Pets';
 import PageHeader from '@/components/PageHeader/PageHeader';
@@ -50,12 +52,14 @@ export default function PetsPage({ pets, builtAt }) {
           ))}
         </List>
       </Card>
+
+      <Button component={Link} href="/pets/new" variant="contained" startIcon={<AddIcon />} sx={{ mt: 3 }}>
+        Добавить питомца
+      </Button>
     </>
   );
 }
 
-// SSG: функция выполняется один раз во время npm run build,
-// готовый HTML потом отдаётся всем пользователям без обращения к данным
 export async function getStaticProps() {
   const pets = await getPets();
 

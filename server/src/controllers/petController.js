@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Pet = require('../models/Pet');
 
-// Общая обработка ошибок: ошибки валидации и некорректный id — 400, остальное — 500
 function handleError(res, error) {
   if (error instanceof mongoose.Error.ValidationError) {
     const errors = Object.fromEntries(
@@ -22,7 +21,6 @@ function isValidId(id) {
   return mongoose.isValidObjectId(id);
 }
 
-// GET /api/pets — список всех питомцев
 async function getPets(req, res) {
   try {
     const pets = await Pet.find().sort({ createdAt: 1 });
@@ -32,7 +30,6 @@ async function getPets(req, res) {
   }
 }
 
-// GET /api/pets/:id — один питомец по id
 async function getPetById(req, res) {
   try {
     const { id } = req.params;
@@ -51,7 +48,6 @@ async function getPetById(req, res) {
   }
 }
 
-// POST /api/pets — создание питомца
 async function createPet(req, res) {
   try {
     const pet = await Pet.create(req.body);
@@ -61,7 +57,6 @@ async function createPet(req, res) {
   }
 }
 
-// PUT /api/pets/:id — обновление питомца
 async function updatePet(req, res) {
   try {
     const { id } = req.params;
@@ -70,8 +65,8 @@ async function updatePet(req, res) {
     }
 
     const pet = await Pet.findByIdAndUpdate(id, req.body, {
-      returnDocument: 'after', // вернуть уже обновлённый документ
-      runValidators: true, // проверять данные по схеме и при обновлении
+      returnDocument: 'after',
+      runValidators: true,
     });
     if (!pet) {
       return res.status(404).json({ message: 'Питомец не найден' });
@@ -83,7 +78,6 @@ async function updatePet(req, res) {
   }
 }
 
-// DELETE /api/pets/:id — удаление питомца
 async function deletePet(req, res) {
   try {
     const { id } = req.params;
