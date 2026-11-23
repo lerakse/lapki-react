@@ -44,8 +44,6 @@ export default function HomePage({ pets, renderedAt }) {
   );
 }
 
-// SSR: функция выполняется на сервере при каждом запросе к странице.
-// Каталог приюта меняется часто, поэтому HTML каждый раз собирается заново
 export async function getServerSideProps() {
   const pets = await getPets();
 

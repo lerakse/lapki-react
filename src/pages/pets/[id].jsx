@@ -72,8 +72,6 @@ export default function PetPage({ pet, builtAt }) {
   );
 }
 
-// getStaticPaths сообщает Next.js, какие анкеты (/pets/1 … /pets/6)
-// нужно сгенерировать во время сборки. fallback: false — для других id будет 404
 export async function getStaticPaths() {
   const pets = await getPets();
 
@@ -83,7 +81,6 @@ export async function getStaticPaths() {
   };
 }
 
-// SSG: данные конкретного питомца получаются один раз при сборке
 export async function getStaticProps({ params }) {
   const pet = await getPetById(params.id);
 

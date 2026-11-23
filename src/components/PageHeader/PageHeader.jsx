@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography';
 
 const MODE_COLOR = { SSR: 'secondary', SSG: 'primary' };
 
-// Заголовок страницы и подпись о том, как и когда страница была отрендерена
 function PageHeader({ title, mode, note }) {
   return (
     <Stack

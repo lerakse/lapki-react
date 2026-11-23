@@ -1,4 +1,3 @@
-// Заполняет базу питомцами из клиентского приложения (npm run seed)
 require('dotenv').config({ quiet: true });
 const mongoose = require('mongoose');
 const connectDB = require('./config/db');

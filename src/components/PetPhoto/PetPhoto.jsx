@@ -3,7 +3,6 @@ import Image from 'next/image';
 import Box from '@mui/material/Box';
 import PetsIcon from '@mui/icons-material/Pets';
 
-// next/image сам уменьшает фото под размер экрана и отдаёт его в WebP
 function PetPhoto({ photo, name, height, sizes, priority = false }) {
   return (
     <Box sx={{ position: 'relative', height, bgcolor: 'divider' }}>

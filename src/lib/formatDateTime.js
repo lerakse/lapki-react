@@ -1,5 +1,3 @@
-// Дата форматируется на сервере и передаётся в props готовой строкой,
-// чтобы HTML с сервера и разметка после гидратации совпадали
 export function formatDateTime(date) {
   return date.toLocaleString('ru-RU', {
     timeZone: 'Europe/Minsk',
